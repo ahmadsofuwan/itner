@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-require __DIR__ . '/test.php';
 
-Route::resource('users', App\Http\Controllers\UserController::class);
+Route::get('login', [App\Http\Controllers\AuthController::class, 'index'])->name('auth.login');
+Route::post('login', [App\Http\Controllers\AuthController::class, 'login'])->name('auth.postLogin');
+Route::post('logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('auth.logout');
+
+
+Route::middleware([App\Http\Middleware\Logined::class])->group(function () {
+    Route::resource('users', App\Http\Controllers\UserController::class);
+    Route::post('change-theme', [App\Http\Controllers\UserController::class, 'changeTheme'])->name('users.changeTheme');
+    require __DIR__ . '/test.php';
+});

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -19,8 +20,8 @@ class UserController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">Edit</a>';
-                    $btn .= ' <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+                    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm" data-id="' . encrypt($row->id) . '">Edit</a>';
+                    $btn .= ' <a href="javascript:void(0)" class="delete btn btn-danger btn-sm" data-id="' . encrypt($row->id) . '">Delete</a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -42,7 +43,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required|unique:users',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'role' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
+            'image' => $request->file('image')->store('images', 'public'),
+        ]);
+
+        Alert::success('Success', 'User created successfully');
+        return redirect()->route('users.index');
     }
 
     /**
@@ -58,7 +78,8 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::find(decrypt($id));
+        return response()->json($user);
     }
 
     /**
@@ -74,6 +95,13 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        User::find(decrypt($id))->delete();
+        return response()->json(['success' => true]);
+    }
+
+    public function changeTheme(Request $request)
+    {
+        User::where('id', auth()->user()->id)->update(['theme' => $request->theme]);
+        return response()->json(['success' => true]);
     }
 }

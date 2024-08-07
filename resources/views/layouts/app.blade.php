@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="{{ auth()->user()->theme ?? '' }}">
 
 <head>
     <!-- Required meta tags -->
@@ -26,7 +26,15 @@
     <link rel="stylesheet" href="assets/css/dark-theme.css" />
     <link rel="stylesheet" href="assets/css/semi-dark.css" />
     <link rel="stylesheet" href="assets/css/header-colors.css" />
-    <title>Rocker - Laravel 10 & Bootstrap 5 Admin Dashboard Template</title>
+    <title>{{ $title ?? 'Dashboard' }}</title>
+    @if (auth()->user()->theme == 'dark-theme')
+        <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    @else
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @endif
+
+
 </head>
 
 <body>
@@ -160,6 +168,34 @@
     <script src="assets/js/app.js"></script>
     @yield('script')
     @include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const targetNode = document.documentElement; // <html> element
+            const config = {
+                attributes: true,
+                attributeFilter: ['class']
+            };
+
+            const callback = function(mutationsList, observer) {
+                for (let mutation of mutationsList) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        $.ajax({
+                            url: "{{ route('users.changeTheme') }}",
+                            method: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                theme: targetNode.className
+                            },
+                        });
+                    }
+                }
+            };
+
+            const observer = new MutationObserver(callback);
+            observer.observe(targetNode, config);
+        });
+    </script>
 </body>
 
 </html>
