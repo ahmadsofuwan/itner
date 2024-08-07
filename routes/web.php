@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-require __DIR__.'/test.php';
 
+require __DIR__ . '/test.php';
 
-
+Route::resource('users', App\Http\Controllers\UserController::class);
