@@ -58,6 +58,20 @@
                 <div class="menu-title">Users</div>
             </a>
         </li>
+        <li>
+            <a href="{{ route('mikrotik.index') }}">
+                <div class="parent-icon"><i class='fadeIn animated bx bx-server'></i>
+                </div>
+                <div class="menu-title">Mikrotik</div>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('olt.index') }}">
+                <div class="parent-icon"><i class='fadeIn animated bx bx-server'></i>
+                </div>
+                <div class="menu-title">Olt</div>
+            </a>
+        </li>
 
         <li class="menu-label">UI Elements</li>
         <li>
@@ -125,8 +139,7 @@
                 </li>
                 <li> <a href="{{ url('component-spinners') }}"><i class="bx bx-right-arrow-alt"></i>Spinners</a>
                 </li>
-                <li> <a href="{{ url('component-notifications') }}"><i
-                            class="bx bx-right-arrow-alt"></i>Notifications</a>
+                <li> <a href="{{ url('component-notifications') }}"><i class="bx bx-right-arrow-alt"></i>Notifications</a>
                 </li>
                 <li> <a href="{{ url('component-avtars-chips') }}"><i class="bx bx-right-arrow-alt"></i>Avatrs &
                         Chips</a>
@@ -215,26 +228,19 @@
                 <div class="menu-title">Authentication</div>
             </a>
             <ul>
-                <li> <a href="{{ url('authentication-signin') }}" target="_blank"><i
-                            class="bx bx-right-arrow-alt"></i>Sign In</a>
+                <li> <a href="{{ url('authentication-signin') }}" target="_blank"><i class="bx bx-right-arrow-alt"></i>Sign In</a>
                 </li>
-                <li> <a href="{{ url('authentication-signup') }}" target="_blank"><i
-                            class="bx bx-right-arrow-alt"></i>Sign Up</a>
+                <li> <a href="{{ url('authentication-signup') }}" target="_blank"><i class="bx bx-right-arrow-alt"></i>Sign Up</a>
                 </li>
-                <li> <a href="{{ url('authentication-signin-with-header-footer') }}" target="_blank"><i
-                            class="bx bx-right-arrow-alt"></i>Sign In with Header & Footer</a>
+                <li> <a href="{{ url('authentication-signin-with-header-footer') }}" target="_blank"><i class="bx bx-right-arrow-alt"></i>Sign In with Header & Footer</a>
                 </li>
-                <li> <a href="{{ url('authentication-signup-with-header-footer') }}" target="_blank"><i
-                            class="bx bx-right-arrow-alt"></i>Sign Up with Header & Footer</a>
+                <li> <a href="{{ url('authentication-signup-with-header-footer') }}" target="_blank"><i class="bx bx-right-arrow-alt"></i>Sign Up with Header & Footer</a>
                 </li>
-                <li> <a href="{{ url('authentication-forgot-password') }}" target="_blank"><i
-                            class="bx bx-right-arrow-alt"></i>Forgot Password</a>
+                <li> <a href="{{ url('authentication-forgot-password') }}" target="_blank"><i class="bx bx-right-arrow-alt"></i>Forgot Password</a>
                 </li>
-                <li> <a href="{{ url('authentication-reset-password') }}" target="_blank"><i
-                            class="bx bx-right-arrow-alt"></i>Reset Password</a>
+                <li> <a href="{{ url('authentication-reset-password') }}" target="_blank"><i class="bx bx-right-arrow-alt"></i>Reset Password</a>
                 </li>
-                <li> <a href="{{ url('authentication-lock-screen') }}" target="_blank"><i
-                            class="bx bx-right-arrow-alt"></i>Lock Screen</a>
+                <li> <a href="{{ url('authentication-lock-screen') }}" target="_blank"><i class="bx bx-right-arrow-alt"></i>Lock Screen</a>
                 </li>
             </ul>
         </li>
@@ -259,17 +265,13 @@
                 <div class="menu-title">Errors</div>
             </a>
             <ul>
-                <li> <a href="{{ url('errors-404-error') }}" target="_blank"><i
-                            class="bx bx-right-arrow-alt"></i>404 Error</a>
+                <li> <a href="{{ url('errors-404-error') }}" target="_blank"><i class="bx bx-right-arrow-alt"></i>404 Error</a>
                 </li>
-                <li> <a href="{{ url('errors-500-error') }}" target="_blank"><i
-                            class="bx bx-right-arrow-alt"></i>500 Error</a>
+                <li> <a href="{{ url('errors-500-error') }}" target="_blank"><i class="bx bx-right-arrow-alt"></i>500 Error</a>
                 </li>
-                <li> <a href="{{ url('errors-coming-soon') }}" target="_blank"><i
-                            class="bx bx-right-arrow-alt"></i>Coming Soon</a>
+                <li> <a href="{{ url('errors-coming-soon') }}" target="_blank"><i class="bx bx-right-arrow-alt"></i>Coming Soon</a>
                 </li>
-                <li> <a href="{{ url('error-blank-page') }}" target="_blank"><i
-                            class="bx bx-right-arrow-alt"></i>Blank Page</a>
+                <li> <a href="{{ url('error-blank-page') }}" target="_blank"><i class="bx bx-right-arrow-alt"></i>Blank Page</a>
                 </li>
             </ul>
         </li>

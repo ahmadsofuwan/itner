@@ -30,7 +30,7 @@ return new class extends Migration
             'username' => 'admin',
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
-            'password' => Hash::make('password'),
+            'password' => 'admin',
             'role' => 'admin',
         ]);
     }

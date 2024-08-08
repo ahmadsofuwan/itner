@@ -20,7 +20,10 @@ Route::post('logout', [App\Http\Controllers\AuthController::class, 'logout'])->n
 
 
 Route::middleware([App\Http\Middleware\Logined::class])->group(function () {
-    Route::resource('users', App\Http\Controllers\UserController::class);
-    Route::post('change-theme', [App\Http\Controllers\UserController::class, 'changeTheme'])->name('users.changeTheme');
     require __DIR__ . '/test.php';
+    Route::post('change-theme', [App\Http\Controllers\UserController::class, 'changeTheme'])->name('users.changeTheme');
+
+    Route::resource('users', App\Http\Controllers\UserController::class);
+    Route::resource('mikrotik', App\Http\Controllers\MikrotikController::class);
+    Route::resource('olt', App\Http\Controllers\OltController::class);
 });
