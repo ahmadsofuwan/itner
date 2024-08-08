@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('role', ['admin', 'user'])->default('user');
             $table->string('image')->nullable();
             $table->string('theme')->default('light');
+            $table->string('phone')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -49,6 +50,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
             'role' => 'required',
+            'phone' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -59,6 +61,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
             'role' => $request->role,
             'image' => $request->file('image')->store('images', 'public'),
+            'phone' => $request->phone,
         ]);
 
         Alert::success('Success', 'User created successfully');
@@ -70,7 +73,8 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::find(decrypt($id));
+        return response()->json($user);
     }
 
     /**
@@ -78,8 +82,6 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        $user = User::find(decrypt($id));
-        return response()->json($user);
     }
 
     /**
@@ -87,7 +89,33 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $id = decrypt($id);
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required|unique:users,username,' . $id,
+            'email' => 'required|email|unique:users,email,' . $id,
+            'password' => $request->password ? 'required|min:8' : '',
+            'role' => 'required',
+            'phone' => 'required',
+            'image' => $request->image ? 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048' : '',
+        ]);
+
+        User::find($id)->update([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => $request->password ? Hash::make($request->password) : '',
+            'role' => $request->role,
+            'image' => $request->file('image') ? tap(User::find($id)->image, function ($previousImage) {
+                if ($previousImage) {
+                    Storage::disk('public')->delete($previousImage);
+                }
+            }) && $request->file('image')->store('images', 'public') : User::find($id)->image,
+            'phone' => $request->phone,
+        ]);
+
+        Alert::success('Success', 'User updated successfully');
+        return redirect()->route('users.index');
     }
 
     /**

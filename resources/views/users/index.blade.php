@@ -39,6 +39,7 @@
                             <thead>
                                 <tr>
                                     <th>Username</th>
+                                    <th>Phone</th>
                                     <th>Email</th>
                                     <th>Role</th>
                                     <th>Action</th>
@@ -70,7 +71,7 @@
                         <form class="row g-3" id="form" action="{{ route('users.store') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="inputLastName" class="form-label">Name</label>
                                 <input type="text" class="form-control" id="inputLastName" name="name"
                                     value="{{ old('name') }}">
@@ -78,11 +79,19 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="inputLastName" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="inputLastName" name="username"
                                     value="{{ old('username') }}">
                                 @error('username')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputLastName" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="inputLastName" name="phone"
+                                    value="{{ old('phone') }}">
+                                @error('phone')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -149,6 +158,10 @@
                         name: 'name'
                     },
                     {
+                        data: 'phone',
+                        name: 'phone'
+                    },
+                    {
                         data: 'email',
                         name: 'email'
                     },
@@ -205,15 +218,15 @@
                         }
 
                         $.ajax({
-                            url: "{{ route('users.edit', '') }}/" + id,
+                            url: "{{ route('users.show', '') }}/" + id,
                             type: 'GET',
                             success: function(response) {
-                                console.log(response);
                                 $("input[name='name']").val(response.name);
                                 $("input[name='username']").val(response.username);
                                 $("input[name='email']").val(response.email);
-                                $("input[name='role']").val(response.role);
+                                $("select[name='role']").val(response.role);
                                 $("input[name='password']").val('');
+                                $("input[name='phone']").val(response.phone);
                             }
                         });
 
