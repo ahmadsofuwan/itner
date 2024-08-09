@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('style')
-    <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
 @endsection
 
 @section('wrapper')
@@ -113,7 +113,7 @@
                                 @enderror
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary px-5">Register</button>
+                                <button type="submit" class="btn btn-primary px-5">Save</button>
                             </div>
                         </form>
                     </div>

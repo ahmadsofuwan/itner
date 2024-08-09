@@ -26,4 +26,9 @@ Route::middleware([App\Http\Middleware\Logined::class])->group(function () {
     Route::resource('users', App\Http\Controllers\UserController::class);
     Route::resource('mikrotik', App\Http\Controllers\MikrotikController::class);
     Route::resource('olt', App\Http\Controllers\OltController::class);
+
+
+    Route::prefix('data')->group(function () {
+        Route::resource('mapsdata', App\Http\Controllers\Data\MapsDataController::class);
+    });
 });
